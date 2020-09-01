@@ -28,8 +28,6 @@ exports.OPTIONS = {
 			ServerResponse: require('../http/KlasaServerResponse'),
 			Http1IncomingMessage: require('../http/KlasaIncomingMessage'),
 			Http1ServerResponse: require('../http/KlasaServerResponse'),
-			Http2ServerRequest: require('../http/KlasaHttp2ServerRequest'),
-			Http2ServerResponse: require('../http/KlasaHttp2ServerResponse')
 		}
 	},
 	pieceDefaults: {
