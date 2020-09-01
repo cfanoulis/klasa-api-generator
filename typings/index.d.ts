@@ -7,49 +7,6 @@ import { DataStore, Collection, Permissions } from 'discord.js';
 declare module 'klasa-dashboard-hooks' {
 
 //#region Classes
-
-	export class DashboardClient extends KlasaClient {
-		public constructor(options?: DashboardClientOptions);
-		public options: Required<DashboardClientOptions>;
-		public server: Server;
-		public routes: RouteStore;
-		public middlewares: MiddlewareStore;
-		public dashboardUsers: DataStore<string, DashboardUser, typeof DashboardUser>;
-	}
-
-	export { DashboardClient as Client };
-
-	export class DashboardUser {
-		public constructor(client: DashboardClient, user: any);
-		public client: DashboardClient;
-		public id: string;
-		public username: string;
-		public discriminator: number;
-		public locale: string;
-		public mfaEnabled: boolean;
-		public avatar: string;
-		public guilds: Collection<string, DashboardGuild>;
-		public avatarURL: string;
-		public user: KlasaUser | null;
-		public toJSON(): any;
-		private setupGuilds(dashboardUser: DashboardUser, guilds: any[]): void;
-	}
-
-	export class DashboardGuild {
-		public constructor(client: DashboardClient, guild: any, user: DashboardUser);
-		public client: DashboardClient;
-		public user: DashboardUser;
-		public id: string;
-		public name: string;
-		public icon: string | null;
-		public userIsOwner: boolean;
-		public userGuildPermissions: Permissions;
-		public userCanManage: boolean;
-		public iconURL: string | null;
-		public guild: KlasaGuild;
-		public toJSON(): any;
-	}
-
 	export class Server {
 		public constructor(client: DashboardClient);
 		public client: DashboardClient;
@@ -102,8 +59,6 @@ declare module 'klasa-dashboard-hooks' {
 		apiPrefix?: string;
 		origin?: string;
 		port?: number;
-		http2?: boolean;
-		sslOptions?: SecureContextOptions;
 	}
 
 	export interface DashboardClientOptions extends KlasaClientOptions {
@@ -118,7 +73,6 @@ declare module 'klasa-dashboard-hooks' {
 		params: Record<string, any>;
 		body?: any;
 		length?: number;
-		auth?: AuthData;
 	}
 
 	export interface RouteOptions extends PieceOptions {
@@ -161,11 +115,6 @@ declare module 'klasa-dashboard-hooks' {
 			OK: string;
 			UPDATED: [string, string];
 		};
-	}
-
-	export interface AuthData {
-		token: string;
-		scope: string[];
 	}
 
 //#endregion Types
