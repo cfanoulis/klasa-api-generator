@@ -1,11 +1,9 @@
 const { Client, util: { mergeDefault } } = require('klasa');
-const { BaseManager } = require('discord.js');
 const path = require('path');
 
 const Server = require('./http/Server');
 const RouteStore = require('./structures/RouteStore');
 const MiddlewareStore = require('./structures/MiddlewareStore');
-const DashboardUser = require('./structures/DashboardUser');
 const { OPTIONS } = require('./util/constants');
 
 class DashboardClient extends Client {
@@ -25,7 +23,6 @@ class DashboardClient extends Client {
 
 		this.middlewares = new MiddlewareStore(this);
 
-		this.dashboardUsers = new BaseManager(this, undefined, DashboardUser);
 
 		this
 			.registerStore(this.routes)
