@@ -1,4 +1,4 @@
-const { Middleware } = require('klasa-dashboard-hooks');
+const { Middleware } = require('klasa-api-generator');
 
 module.exports = class extends Middleware {
 
