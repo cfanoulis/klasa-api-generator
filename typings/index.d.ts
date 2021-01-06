@@ -1,10 +1,9 @@
-import { KlasaClient, KlasaClientOptions, Piece, Store, PieceOptions, PieceDefaults, KlasaUser, KlasaGuild } from 'klasa';
-import { Server as HttpServer, IncomingMessage, ServerResponse } from 'http';
-import { SecureContextOptions, Server as HttpSecureServer } from 'tls';
+import { IncomingMessage, Server as HttpServer, ServerResponse } from 'http';
 import { Http2SecureServer } from 'http2';
-import { DataStore, Collection, Permissions } from 'discord.js';
+import { KlasaClientOptions, Piece, PieceDefaults, PieceOptions, Store } from 'klasa';
+import { Server as HttpSecureServer } from 'tls';
 
-declare module 'klasa-dashboard-hooks' {
+declare module 'klasa-api-generator' {
 
 //#region Classes
 	export class Server {
