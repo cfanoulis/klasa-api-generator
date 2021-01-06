@@ -1,14 +1,14 @@
 import { IncomingMessage, Server as HttpServer, ServerResponse } from 'http';
 import { Http2SecureServer } from 'http2';
-import { KlasaClientOptions, Piece, PieceDefaults, PieceOptions, Store } from 'klasa';
+import { KlasaClient, KlasaClientOptions, Piece, PieceDefaults, PieceOptions, Store } from 'klasa';
 import { Server as HttpSecureServer } from 'tls';
 
 declare module 'klasa-api-generator' {
 
 //#region Classes
 	export class Server {
-		public constructor(client: DashboardClient);
-		public client: DashboardClient;
+		public constructor(client: KlasaClient);
+		public client: KlasaClient;
 		public server: HttpServer | HttpSecureServer | Http2SecureServer;
 		public onNoMatch: (request: IncomingMessage, response: ServerResponse) => void;
 		public listen(port: number): Promise<void>;
@@ -17,10 +17,20 @@ declare module 'klasa-api-generator' {
 	}
 
 	export abstract class Middleware extends Piece {
-		public constructor(client: DashboardClient, store: MiddlewareStore, file: string[], directory: string, options?: MiddlewareOptions);
-		public priority: number;
-		public abstract run(request: KlasaIncomingMessage, response: ServerResponse, route?: Route): Promise<void>;
-	}
+    public constructor(
+      client: KlasaClient,
+      store: MiddlewareStore,
+      file: string[],
+      directory: string,
+      options?: MiddlewareOptions
+    );
+    public priority: number;
+    public abstract run(
+      request: KlasaIncomingMessage,
+      response: ServerResponse,
+      route?: Route
+    ): Promise<void>;
+  }
 
 	export class MiddlewareStore extends Store<string, Middleware, typeof Middleware> {
 		public sortedMiddlewares: Middleware[];
@@ -28,13 +38,19 @@ declare module 'klasa-api-generator' {
 	}
 
 	export abstract class Route extends Piece {
-		public constructor(client: DashboardClient, store: RouteStore, file: string[], directory: string, options?: RouteOptions);
-		public authenticated: boolean;
-		public parsed: ParsedRoute;
-		public route: string;
-		public matches(split: string[]): boolean;
-		public execute(split: string[]): Record<string, any>;
-	}
+    public constructor(
+      client: KlasaClient,
+      store: RouteStore,
+      file: string[],
+      directory: string,
+      options?: RouteOptions
+    );
+    public authenticated: boolean;
+    public parsed: ParsedRoute;
+    public route: string;
+    public matches(split: string[]): boolean;
+    public execute(split: string[]): Record<string, any>;
+  }
 
 	export class RouteStore extends Store<string, Route, typeof RouteStore> {
 		public registry: Record<string, Map<string, Route>>;
@@ -117,5 +133,4 @@ declare module 'klasa-api-generator' {
 	}
 
 //#endregion Types
-
 }
