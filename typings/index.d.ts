@@ -18,7 +18,6 @@ declare module 'klasa-api-generator' {
 
 	export abstract class Middleware extends Piece {
     public constructor(
-      client: KlasaClient,
       store: MiddlewareStore,
       file: string[],
       directory: string,
@@ -39,7 +38,6 @@ declare module 'klasa-api-generator' {
 
 	export abstract class Route extends Piece {
     public constructor(
-      client: KlasaClient,
       store: RouteStore,
       file: string[],
       directory: string,
